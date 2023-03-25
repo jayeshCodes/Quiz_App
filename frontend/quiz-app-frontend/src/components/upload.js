@@ -1,10 +1,10 @@
 import React from "react";
 
 
-const Upload = () =>{
+export const Upload = () =>{
     return (
         <div>
-            
+          Upload  
         </div>
     )
 }

@@ -1,27 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
 import { NextUIProvider, createTheme, Navbar, Button, Link, Text, Card, Radio } from "@nextui-org/react";
+import {Sidebar} from './components/sidebar'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Dashboard from './components/dashboard';
+import { Upload } from './components/upload';
+
+
 
 const darkTheme = createTheme({ type: "dark" });
 
 function App() {
   return (
-    <div>
+  
     <NextUIProvider theme={darkTheme}>
-      <Navbar isBordered variant={"floating"}>
-        <Navbar.Brand>
-          <Text b color="inherit">
-            Dashboard
-          </Text>
-        </Navbar.Brand>
-        <Navbar.Content hideIn="md">
-          <Navbar.Link href="#">Home</Navbar.Link>
-          <Navbar.Link href="#">Upload</Navbar.Link>
-        </Navbar.Content>
-      </Navbar>
-
+    <BrowserRouter>
+    <Sidebar>
+    <Routes>
+      <Route path="/" element={<Dashboard/>} />
+      <Route path="/upload" element={<Upload/>} />
+      </Routes>
+    </Sidebar>
+    </BrowserRouter>
     </NextUIProvider>
-    </div>
+
   );
 }
 
