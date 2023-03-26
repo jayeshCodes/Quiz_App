@@ -2614,6 +2614,18 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
+"@toast-ui/chart@^4.6.1":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@toast-ui/chart/-/chart-4.6.1.tgz#1d7e11e7167f4c44536a8b5901e61492942077c1"
+  integrity sha512-F35IkHS0U9zqN6xIV1Yj3/wh8KGlZyzT3bwVGBJh/82DMDMn8rD2Us8X7xBMBGcZ3E15qkfnKjrATxU5ZoGAnA==
+
+"@toast-ui/react-chart@^4.6.1":
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/@toast-ui/react-chart/-/react-chart-4.6.1.tgz#594c2878a802be3a318c8afc1767b7851ff6fb06"
+  integrity sha512-RN/LKKyIDFVNHMuGNQAguXr/wnLDwh4yDxvTdObJYscAS6cRlciUlD8Uh/hBcSTs8rjrO4Ly3Pm+XGhTcAyu4g==
+  dependencies:
+    "@toast-ui/chart" "^4.6.1"
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"

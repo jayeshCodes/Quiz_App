@@ -65,9 +65,10 @@ main{
 
 /* dashboard */
 .dashboard{
-    display: block;
+    display: flex;
     padding-left: 1%;
     margin-top: -1%;
+    flex-direction: column;
 }
 
 .dashboard-header{
@@ -76,4 +77,13 @@ main{
 
 .dashboard-body{
     margin-top: 4%;
+}
+
+.dash-card{
+    align-items: center;
+    justify-content: center;
+}
+
+.chart{
+    
 }
