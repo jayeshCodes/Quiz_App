@@ -5,6 +5,8 @@ import {Sidebar} from './components/sidebar'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/dashboard';
 import { Upload } from './components/upload';
+import { Profile } from './components/profile';
+import Tests from './components/tests';
 
 
 
@@ -19,6 +21,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Dashboard/>} />
       <Route path="/upload" element={<Upload/>} />
+      <Route path="/profile" element={<Profile/>} />
+      <Route path="/tests" element={<Tests/>} />
       </Routes>
     </Sidebar>
     </BrowserRouter>

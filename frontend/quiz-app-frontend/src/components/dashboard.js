@@ -54,7 +54,7 @@ function Dashboard() {
             <div className='dashboard-body'>
                 <Grid.Container gap={2}>
                     <Grid xs={6} >
-                        <Card isHoverable variant="bordered" css={{ mw: "100%" }} className='dash-card'>
+                        <Card variant="bordered" css={{ mw: "100%" }} className='dash-card'>
                             <Card.Header>
                                 <Text><h4>Chart 1</h4></Text>
                             </Card.Header>
@@ -65,7 +65,7 @@ function Dashboard() {
 
                     </Grid>
                     <Grid xs={6} >
-                        <Card isHoverable variant="bordered" css={{ mw: "100%" }} className='dash-card'>
+                        <Card variant="bordered" css={{ mw: "100%" }} className='dash-card'>
                             <Card.Header>
                                 <Text><h4>Chart 2</h4></Text>
                             </Card.Header>

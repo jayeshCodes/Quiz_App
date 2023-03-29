@@ -87,3 +87,16 @@ main{
 .chart{
     
 }
+
+/* upload */
+.upload-body{
+    margin-top: 3%;
+    /* margin-left: -2%; */
+}
+
+.upload-modal-image{
+    height: 100px;
+    border-radius: 5%;
+    border-width: 2px;
+    border-color: black;
+}

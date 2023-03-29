@@ -24,8 +24,13 @@ export const Sidebar = ({children}) => {
             icon:FaFileUpload
         },
         {
-            path:"/logout",
-            name:"Logout",
+            path:"/tests",
+            name:"Tests",
+            icon:FaLock
+        },
+        {
+            path:"/profile",
+            name:"Profile",
             icon:FaLock
         },
     ]
