@@ -1,6 +1,8 @@
 import React from "react";
 import { Card, Grid, Container, Text, Button, Modal, useModal, Row, Checkbox, Textarea } from "@nextui-org/react";
 
+// import Upload_module from "./upload_module";
+
 
 export const Upload = () => {
 
@@ -44,6 +46,7 @@ export const Upload = () => {
           <Modal.Body>
             <div className="upload-modal-image">
               <Text>Upload Image(s) here</Text>
+              {/* <Upload_module /> */}
             </div>
             <Text style={{marginBottom:"8%"}}>OR</Text>
             <Textarea

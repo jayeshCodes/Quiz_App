@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0%;
     text-decoration: none;
@@ -6,16 +6,16 @@
 
 
 /* sidebar */
-.container{
+.container {
     display: flex;
 }
 
-main{
+main {
     width: 100%;
     padding: 20px;
 }
 
-.sidebar{
+.sidebar {
     background: #3E065F;
     color: #FFF;
     height: 100vh;
@@ -24,23 +24,28 @@ main{
     border-bottom-right-radius: 2%;
 }
 
-.top-section{
+.container .sidebar {
+    position: static;
+    height: 100vh;
+}
+
+.top-section {
     display: flex;
     align-items: center;
     padding: 20px 15px;
 }
 
-.logo{
+.logo {
     font-size: 40px;
 }
 
-.bars{
+.bars {
     display: flex;
     font-size: 25px;
     margin-left: 50px;
 }
 
-.link{
+.link {
     display: flex;
     color: #FFF;
     padding: 10px 15px;
@@ -48,55 +53,84 @@ main{
     transition: all 0.5s;
 }
 
-.link:hover{
+.link:hover {
     background: #700B97;
     color: rgb(252, 227, 227);
     transition: all 0.5s;
 }
 
-.active{
+.active {
     background: #8E05C2;
     color: rgb(255, 255, 255);
 }
 
-.icon, .link-text{
+.icon,
+.link-text {
     font-size: 20px;
 }
 
 /* dashboard */
-.dashboard{
+.dashboard {
     display: flex;
     padding-left: 1%;
     margin-top: -1%;
     flex-direction: column;
 }
 
-.dashboard-header{
+.dashboard-header {
     font-size: 20px;
 }
 
-.dashboard-body{
+.dashboard-body {
     margin-top: 4%;
 }
 
-.dash-card{
+.dash-card {
     align-items: center;
     justify-content: center;
 }
 
-.chart{
-    
-}
+.chart {}
 
 /* upload */
-.upload-body{
+.upload-body {
     margin-top: 3%;
     /* margin-left: -2%; */
 }
 
-.upload-modal-image{
+.upload-modal-image {
     height: 100px;
     border-radius: 5%;
     border-width: 2px;
     border-color: black;
+}
+
+/* tests page */
+
+.test-card-container {
+    margin-top: 0%;
+    margin-bottom: 2%;
+}
+
+/* profile page */
+.profile-main-div {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.profile-header {
+    flex: 1;
+}
+
+.profile-body {
+    margin-top: 3%;
+    flex: 4;
+}
+
+.profile-logout {
+    margin-bottom: 2%;
+    position: absolute;
+    right: 5%;
+    top: 4%;
 }
