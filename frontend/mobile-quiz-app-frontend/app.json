@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "mobile-quiz-app-frontend",
+    "slug": "mobile-quiz-app-frontend"
+  }
+}
