@@ -9,6 +9,7 @@ from flask_cors import CORS
 from google.cloud import vision
 
 from flask import Flask, render_template, jsonify, request, Response
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
@@ -27,6 +28,8 @@ with io.open(file_name, 'rb') as image_file:
 
 image = vision.Image(content=content)
 
+UPLOAD_FOLDER = './uploadImage.py'
+ALLOWED_EXTENTIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 @app.route("/")
 def index():
@@ -35,6 +38,15 @@ def index():
 
 @app.route("/upload_image", methods=["POST"])
 def upload_image():
+    if 'file' not in request.files:
+        return jsonify({'error': 'media not provided'}), 400
+    file - request.files['files']
+    if file.filename == '':
+        return jsonify({'error': 'no file selected'}), 400
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    return jsonify({'msg': 'media uploaded successfully'})
     # file = request.files["file"]
     # file_contents = file.read()
     return {"status": "success"}

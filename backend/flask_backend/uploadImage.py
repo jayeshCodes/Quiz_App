@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'C:/Users/Neil/OneDrive/Documents/GitHub/Quiz_App/backend/flask_backend/uploadImage.py'
+UPLOAD_FOLDER = './uploadImage.py'
 ALLOWED_EXTENTIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
