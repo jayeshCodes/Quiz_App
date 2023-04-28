@@ -15,7 +15,7 @@ key = "AIzaSyDH4zke2oTyiXcGYrHt_O14bVO5iogGDdU"
 client = vision.ImageAnnotatorClient()
 
 # The name of the image file to annotate
-file_name = os.path.abspath('resources/handwriting3.jpg')
+file_name = os.path.abspath('resources/A-Cat.jpg')
 
 # Loads the image into memory
 with io.open(file_name, 'rb') as image_file:

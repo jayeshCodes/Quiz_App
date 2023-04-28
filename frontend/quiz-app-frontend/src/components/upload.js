@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Grid, Container, Text, Button, Modal, useModal, Row, Checkbox, Textarea } from "@nextui-org/react";
 
 // import Upload_module from "./upload_module";
 
 
 export const Upload = () => {
+
+  const [data, setData] = useState([{}])
+
+  useEffect(() => {
+    fetch("/image").then(
+      res => res.json()
+    ).then(data => {
+      setData(data)
+      console.log(data)
+    })
+  }, [])
 
   const [visible, setVisible] = React.useState(false);
   const handler = () => setVisible(true);
@@ -48,8 +59,14 @@ export const Upload = () => {
               <Text>Upload Image(s) here</Text>
               {/* <Upload_module /> */}
             </div>
-            <Text style={{marginBottom:"8%"}}>OR</Text>
+            <Text style={{ marginBottom: "8%" }}>OR</Text>
             <Textarea
+              initialValue={(typeof data.text === 'undefined') ? (
+                <p>Loading ...</p>
+              ) : (data.text.map((text, i) => (
+                <p key={i}>{i}</p>)
+              ))}
+
               underlined
               color="secondary"
               labelPlaceholder="Type your questions here"
