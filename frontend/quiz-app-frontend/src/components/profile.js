@@ -54,11 +54,10 @@ export const Profile = () => {
                 <h4>Email ID: jayeshcodes@gmail.com</h4>
                 <h4>Phone No.: 69696969</h4>
                 <h4>Teacher ID: 69420</h4>
-                {(typeof data.members === 'undefined') ? (
+                {(typeof data.text === 'undefined') ? (
                 <p>Loading ...</p>
-              ) : (data.members.map((member, i) => (
-                <p key={i}>{member}</p>)
-              ))}
+              ) : (<p>{data.text}</p>)
+              }
             </div>
         </div>
     )
