@@ -4,6 +4,7 @@ import { User, Button, Modal, Text, Input, Row, Checkbox } from "@nextui-org/rea
 export const Profile = () => {
 
     const [data, setData] = useState([{}])
+    
 
     useEffect(() => {
       fetch("http://localhost:5000/image").then(response =>
@@ -54,10 +55,10 @@ export const Profile = () => {
                 <h4>Email ID: jayeshcodes@gmail.com</h4>
                 <h4>Phone No.: 69696969</h4>
                 <h4>Teacher ID: 69420</h4>
-                {(typeof data.text === 'undefined') ? (
+                {/* {(typeof data.text === 'undefined') ? (
                 <p>Loading ...</p>
               ) : (<p>{data.text}</p>)
-              }
+              } */}
             </div>
         </div>
     )

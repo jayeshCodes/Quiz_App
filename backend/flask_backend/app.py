@@ -9,23 +9,23 @@ from flask_cors import CORS
 from google.cloud import vision
 
 from flask import Flask, render_template, jsonify, request, Response
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
 
+UPLOAD_FOLDER = 'C:/Quiz_App/backend/flask_backend/resources'
+ALLOWED_EXTENTIONS = set(['txt', 'pdf', 'jpg', 'png', 'jpeg'])
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENTIONS
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 key = "AIzaSyDH4zke2oTyiXcGYrHt_O14bVO5iogGDdU"
 
-# Instantiates a client
-client = vision.ImageAnnotatorClient()
-
-# The name of the image file to annotate
-file_name = os.path.abspath('resources/handwriting.jpg')
-
-# Loads the image into memory
-with io.open(file_name, 'rb') as image_file:
-    content = image_file.read()
-
-image = vision.Image(content=content)
+upload_name=""
+filepath=""
 
 
 @app.route("/")
@@ -33,15 +33,42 @@ def index():
     return "<div>hello</div>"
 
 
-@app.route("/upload_image", methods=["POST"])
+@app.route("/upload_image", methods=['POST'])
 def upload_image():
+    global filepath
+    if 'file' not in request.files:
+        return jsonify({'error': 'media not provided'}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({'error': 'no file selected'}), 400
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        upload_name=file.filename
+        filepath="resources/"+upload_name
+        print(upload_name)
+        return jsonify({'msg': 'media uploaded successfully'})
+    else:
+        return jsonify({'error': 'file type not allowed'}), 400
     # file = request.files["file"]
     # file_contents = file.read()
-    return {"status": "success"}
+
+
 
 
 @app.route("/image")
 def imageToText():
+    # Instantiates a client
+    client = vision.ImageAnnotatorClient()
+
+    # The name of the image file to annotate
+    file_name = os.path.abspath(filepath)
+
+    # Loads the image into memory
+    with io.open(file_name, 'rb') as image_file:
+        content = image_file.read()
+
+    image = vision.Image(content=content)
 
     # members = ["Member1", "Member2", "Member3"]
     # return jsonify(members=members)
@@ -73,4 +100,3 @@ CORS(app)
 
 if __name__ == '__main__':
     app.run(debug=True)
-
