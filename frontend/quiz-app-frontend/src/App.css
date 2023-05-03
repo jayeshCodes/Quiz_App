@@ -83,6 +83,28 @@ main {
 
 .dashboard-body {
     margin-top: 4%;
+    display: flex;
+}
+
+.uppercharts{
+    flex: 1;
+}
+
+.lowercharts{
+    flex: 1;
+    flex-direction: column;
+}
+
+.area-chart{
+    flex: 1;
+}
+
+.radar-chart{
+    flex: 1;
+}
+
+.bar-chart{
+    flex: 1;
 }
 
 .dash-card {

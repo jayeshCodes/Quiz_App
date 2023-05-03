@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, Grid, Container, Text, Button, Modal, useModal, Row, Checkbox, Textarea } from "@nextui-org/react";
+import { Card, Grid, Container, Text, Button, Modal, useModal, Row, Checkbox, Textarea, Input } from "@nextui-org/react";
 
 // import Upload_module from "./upload_module";
 
 
 export const Upload = () => {
+
+  const [isUploadPressed, setIsUploadPressed] = useState(false);
 
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -28,16 +30,20 @@ export const Upload = () => {
   };
 
 
-  const [data, setData] = useState([{}])
+    const [data, setData] = useState([{}])
 
-  useEffect(() => {
-    fetch("http://localhost:5000/image").then(
-      res => res.json()
-    ).then(data => {
-      setData(data)
-      console.log(data)
-    })
-  }, [])
+
+
+    useEffect(() => {
+      // if (isUploadPressed) { // Check if the upload button is pressed
+        fetch("http://localhost:5000/image").then(response =>
+        response.json()).then(data => {
+          setData(data)
+          console.log(data)
+        });
+      }
+    // }
+    , [isUploadPressed]);  
 
   const [visible, setVisible] = React.useState(false);
   const handler = () => setVisible(true);
@@ -81,19 +87,16 @@ export const Upload = () => {
               <Text>Upload Image(s) here</Text>
               <form onSubmit={handleSubmit}>
                 <input type="file" onChange={handleFileInputChange} />
-                <button type="submit">Upload Image</button>
+                <button type="submit">Upload Image</button >
               </form>
             </div>
             <Text style={{ marginBottom: "8%" }}>OR</Text>
             <Textarea
-              initialValue={(typeof data.text === 'undefined') ? (
-                <p>Loading ...</p>
-              ) : (<p>{data.text}</p>)
-              }
-
               underlined
               color="secondary"
               labelPlaceholder="Type your questions here"
+              value={data.text}
+              contentEditable
             />
           </Modal.Body>
           <Modal.Footer>
