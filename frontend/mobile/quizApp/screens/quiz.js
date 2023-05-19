@@ -107,7 +107,7 @@ const Quiz = ({ navigation }) => {
             alignItems:'center',
             marginTop:100
             }}>
-                <Text style={styles.text}>Loading...</Text>
+                <Text style={styles.text}>Loading questions...</Text>
                 <LottieView
                 source={animationData}
                 autoPlay

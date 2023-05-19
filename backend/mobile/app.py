@@ -236,8 +236,8 @@ def theta():
     for i in range(0, 15):
         x = {'x': i, 'y': theta_list[i]}
         d.append(x)
-        # response_data = {'data': d}
-    return jsonify(d)
+        response_data = {'data': d}
+    return jsonify(response_data)
 
 
 @app.route('/diff')
@@ -247,8 +247,8 @@ def diff():
     for i in range(0, 15):
         x = {'x': i, 'y': difficulty[i]}
         d.append(x)
-        # response_data = {'data': d}
-    return jsonify(d)
+        response_data = {'data': d}
+    return jsonify(response_data)
 
 
 CORS(app)

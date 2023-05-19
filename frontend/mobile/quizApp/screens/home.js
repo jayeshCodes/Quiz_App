@@ -1,38 +1,27 @@
 import { View, SafeAreaView, StyleSheet, Dimensions, StatusBar, Button, Text, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
+import { useFocusEffect } from '@react-navigation/native';
 import Card from '../components/Card';
 import { Chart, Line, Area, HorizontalAxis, VerticalAxis } from 'react-native-responsive-linechart'
 
 const windowHeight = Dimensions.get('window').height;
 
 const Home = () => {
-    const [lineData1, setLineData1] = useState([
-        { x: 0, y: -1.4 },
-        { x: 1, y: -2.1 },
-        { x: 2, y: -2.4 },
-        { x: 3, y: -4 },
-        { x: 4, y: 10 },
-        { x: 5, y: 8 },
-        { x: 6, y: 12 },
-        { x: 7, y: 14 },
-        { x: 8, y: 12 },
-        { x: 9, y: 13.5 },
-        { x: 10, y: 18 },
-    ]);
 
     const [loading, setLoading] = useState(true);
-    // const [lineData1, setLineData1] = useState([]);
+    const [lineData1, setLineData1] = useState([]);
     const [lineData2, setLineData2] = useState([]);
 
-    const getData = async () => {
+    const getData1 = async () => {
         setLoading(true);
         try {
             const res = await fetch('http://192.168.1.6:5000/theta');
             const data = await res.json();
 
-            if (Array.isArray(data)) {
-                setLineData1(data);
-                console.log('linedata1: ',lineData1);
+            if (Array.isArray(data.data)) {
+                setLineData1(data.data);
+                console.log('linedata1: ', lineData1);
+                setLoading(false);
             } else {
                 console.error('Invalid data format for lineData');
             }
@@ -40,12 +29,57 @@ const Home = () => {
             console.error('Error fetching theta:', error);
         }
 
-        const res2 = await fetch('http://192.168.1.6:5000/diff')
-        const data2 = await res2.json();
-        const formattedData = data2.data.map(({ x, y }) => ({ x, y }));
-        setLineData2(formattedData);
-        console.log(lineData2);
-    }
+        try {
+            const res2 = await fetch('http://192.168.1.6:5000/diff');
+            const data2 = await res2.json();
+
+            if (Array.isArray(data2.data)) {
+                setLineData2(data2.data);
+                console.log('linedata2: ', lineData2);
+                setLoading(false);
+            } else {
+                console.error('Invalid data format for lineData');
+            }
+        } catch (error) {
+            console.error('Error fetching diff:', error);
+        }
+        
+    };
+
+    const getData2 = async () => {
+        setLoading(true);
+        
+
+        try {
+            const res2 = await fetch('http://192.168.1.6:5000/diff');
+            const data2 = await res2.json();
+
+            if (Array.isArray(data2.data)) {
+                setLineData2(data2.data);
+                console.log('linedata2: ', lineData2);
+                setLoading(false);
+            } else {
+                console.error('Invalid data format for lineData');
+            }
+        } catch (error) {
+            console.error('Error fetching dif:', error);
+        }
+        
+    };
+
+
+    useFocusEffect(
+        React.useCallback(() => {
+          getData1();
+        }, [])
+      );
+
+      useFocusEffect(
+        React.useCallback(() => {
+          getData2();
+        }, [])
+      );
+
 
     const lineData = [
         { x: 0, y: 12 },
@@ -113,8 +147,9 @@ const Home = () => {
                         fontSize: 18,
                         fontWeight: '600'
                     }}>Question Difficulty:</Text>
-                    {lineData &&
+                    {loading ? <Text style={styles.loadingText}>Take a test to see question difficulties here!</Text> :
 
+                        lineData1 !== [] &&
                         <Chart
                             style={{ height: 200, width: 350 }}
                             data={lineData1}
@@ -123,7 +158,7 @@ const Home = () => {
                             yDomain={{ min: -4, max: 4 }}
                         >
                             <VerticalAxis tickCount={11} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-                            <HorizontalAxis tickCount={5} />
+                            <HorizontalAxis tickCount={8} />
                             <Area theme={{ gradient: { from: { color: '#700B97' }, to: { color: '#000', opacity: 0.4 } } }} />
                             <Line theme={{ stroke: { color: '#700B97', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 } } }} />
                         </Chart>
@@ -137,21 +172,23 @@ const Home = () => {
                         fontSize: 18,
                         fontWeight: '600'
                     }}>Your Performance:</Text>
-                    {lineData &&
+                    {loading ? <Text style={styles.loadingText}>Take a test to see your performance here!</Text> :
 
+                        lineData2 !== [] &&
                         <Chart
                             style={{ height: 200, width: 350 }}
-                            data={lineData}
+                            data={lineData2}
                             padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
                             xDomain={{ min: 0, max: 14 }}
                             yDomain={{ min: -4, max: 4 }}
                         >
                             <VerticalAxis tickCount={11} theme={{ labels: { formatter: (v) => v.toFixed(2) } }} />
-                            <HorizontalAxis tickCount={5} />
+                            <HorizontalAxis tickCount={8} />
                             <Area theme={{ gradient: { from: { color: '#700B97' }, to: { color: '#000', opacity: 0.4 } } }} />
                             <Line theme={{ stroke: { color: '#700B97', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 } } }} />
                         </Chart>
                     }
+
 
 
 
@@ -223,5 +260,11 @@ const styles = StyleSheet.create({
     image: {
         height: 300,
         width: 300
+    },
+    loadingText:{
+        marginLeft:10,
+        fontSize:12,
+        fontWeight:'600',
+        marginTop:80
     }
 })
