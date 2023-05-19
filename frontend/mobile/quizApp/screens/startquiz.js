@@ -1,4 +1,4 @@
-import { View, SafeAreaView, StyleSheet, Dimensions, StatusBar, Button, Text, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
+import { View, SafeAreaView, StyleSheet, Dimensions, StatusBar, Button, Text, TouchableOpacity, TouchableNativeFeedback, ImageBackground } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import Quiz from './quiz';
@@ -16,6 +16,7 @@ const Startquiz = ({navigation}) => {
     return (
 
         <SafeAreaView style={styles.mainContainer}>
+            <ImageBackground resizeMode='cover' style={styles.image} source={require('../assets/quiz.jpg')}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Ready?</Text>
             </View>
@@ -27,6 +28,7 @@ const Startquiz = ({navigation}) => {
                     >Start Quiz</Text>
                 </TouchableOpacity>
             </View>
+            </ImageBackground>
         </SafeAreaView>
     )
 }
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
         marginTop: StatusBar.currentHeight
     },
     headerText: {
-        color: '#fff',
+        color: '#000',
         fontSize: 24,
         fontWeight: '900'
     },
@@ -67,5 +69,8 @@ const styles = StyleSheet.create({
         padding:15,
         borderRadius:16,
         marginLeft:5
+    },
+    image:{
+        height:'100%'
     }
 })

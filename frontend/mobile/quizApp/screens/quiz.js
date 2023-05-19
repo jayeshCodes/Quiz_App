@@ -1,5 +1,8 @@
 import { View, SafeAreaView, StyleSheet, Dimensions, StatusBar, Button, Text, TouchableOpacity, Touchable, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import LottieView from 'lottie-react-native';
+
+import animationData from '../assets/animations/loading.json';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -22,6 +25,7 @@ const Quiz = ({ navigation }) => {
     const [score, setScore] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [correct_answer, setCorrect_answer] = useState('');
+    const [questionAvailable, setQuestionAvailable] = useState(false);
 
     const getQuiz = async () => {
         setIsLoading(true);
@@ -48,6 +52,7 @@ const Quiz = ({ navigation }) => {
         // generateOptionsAndShuffle();
 
         setIsLoading(false);
+        setQuestionAvailable(true);
 
     };
     useEffect(() => {
@@ -55,12 +60,12 @@ const Quiz = ({ navigation }) => {
     }, [])
 
     const handleNextPress = () => {
-        fetch('http://127.0.0.1:5000/CAT/false',{
+        fetch('http://192.168.1.6:5000/false', {
             method: 'POST',
         })
         getQuiz();
-        setCount(count+1);
-    // setOptions(generateOptionsAndShuffle(questions[ques + 1]));
+        setCount(count + 1);
+        // setOptions(generateOptionsAndShuffle(questions[ques + 1]));
     }
 
     const generateOptionsAndShuffle = () => {
@@ -79,15 +84,15 @@ const Quiz = ({ navigation }) => {
                 method: 'POST', // Use the appropriate HTTP method (e.g., POST, GET, etc.)
             })
             getQuiz();
-        }else{
+        } else {
 
-            fetch('http://192.168.1.6:5000/CAT/false',{
+            fetch('http://192.168.1.6:5000/CAT/false', {
                 method: 'POST',
             })
             getQuiz();
         }
-        setCount(count+1);
-        console.log('from function:',count);
+        setCount(count + 1);
+        console.log('from function:', count);
         // setQues(ques + 1)
         // setOptions(generateOptionsAndShuffle(questions[ques + 1]))
         // console.log(_option === questions[ques].correct_answer)
@@ -96,55 +101,68 @@ const Quiz = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.mainContainer}>
-            {/* {isLoading ? <View><Image source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3kAkBj4CIvxX6SqHsJ1oOSZYs_hA56zBFKxX1SwjC&s' }} /><Text style={styles.text}>Loading...</Text></View> : 
-            questions && ( */}
-            <View style={styles.parent}>
+            {isLoading ? 
+            <View style={{ 
+            justifyContent:'center',
+            alignItems:'center',
+            marginTop:100
+            }}>
+                <Text style={styles.text}>Loading...</Text>
+                <LottieView
+                source={animationData}
+                autoPlay
+                loop
+                style={{height:300}}
+            />
+            </View> :
+                questionAvailable && (
+                    <View style={styles.parent}>
 
-                <View style={styles.top}>
-                    <Text style={{
-                        fontWeight: 700,
-                        fontSize: 28,
-                        ...styles.text
-                    }}>Q.  {decodeURIComponent(ques)}</Text>
-                </View>
-                <View style={styles.options}>
-                    <TouchableOpacity style={styles.optionButton} onPress={() => handleSelectedOption(options[0])}>
-                        <Text style={styles.option}>{decodeURIComponent(options[0])}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.optionButton} onPress={() => handleSelectedOption(options[1])}>
-                        <Text style={styles.option}>{decodeURIComponent(options[1])}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.optionButton} onPress={() => handleSelectedOption(options[2])}>
-                        <Text style={styles.option}>{decodeURIComponent(options[2])}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.optionButton} onPress={() => handleSelectedOption(options[3])}>
-                        <Text style={styles.option}>{decodeURIComponent(options[3])}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.bottom}>
-                    {/* <TouchableOpacity style={styles.button}>
+                        <View style={styles.top}>
+                            <Text style={{
+                                fontWeight: 700,
+                                fontSize: 28,
+                                ...styles.text
+                            }}>Q.  {decodeURIComponent(ques)}</Text>
+                        </View>
+                        <View style={styles.options}>
+                            <TouchableOpacity style={styles.optionButton} onPress={() => handleSelectedOption(options[0])}>
+                                <Text style={styles.option}>{decodeURIComponent(options[0])}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.optionButton} onPress={() => handleSelectedOption(options[1])}>
+                                <Text style={styles.option}>{decodeURIComponent(options[1])}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.optionButton} onPress={() => handleSelectedOption(options[2])}>
+                                <Text style={styles.option}>{decodeURIComponent(options[2])}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.optionButton} onPress={() => handleSelectedOption(options[3])}>
+                                <Text style={styles.option}>{decodeURIComponent(options[3])}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.bottom}>
+                            {/* <TouchableOpacity style={styles.button}>
                             <Text style={styles.text}>SKIP</Text>
                         </TouchableOpacity> */}
-                    {count !== 15 &&
-                        <TouchableOpacity style={styles.button} onPress={handleNextPress}>
-                            <Text style={styles.text}>SKIP</Text>
-                        </TouchableOpacity>
-                        
-                    }{console.log('question:',count)}
-                    {count === 15 &&
-                        <TouchableOpacity style={styles.button} onPress={navigation.navigate('Result', { score: score })}>
-                            <Text style={styles.text}>RESULT</Text>
-                        </TouchableOpacity>
-                    }
+                            {count !== 15 &&
+                                <TouchableOpacity style={styles.button} onPress={handleSelectedOption}>
+                                    <Text style={styles.text}>SKIP</Text>
+                                </TouchableOpacity>
 
-                    {/* <TouchableOpacity onPress={() =>{navigation.navigate('Result')}}>
+                            }{console.log('question:', count)}
+                            {count === 15 &&
+                                <TouchableOpacity style={styles.button} onPress={navigation.navigate('Result', { score: score })}>
+                                    <Text style={styles.text}>RESULT</Text>
+                                </TouchableOpacity>
+                            }
+
+                            {/* <TouchableOpacity onPress={() =>{navigation.navigate('Result')}}>
                     <Text style={styles.text}>END</Text>
                 </TouchableOpacity> */}
-                </View>
-            </View>
-            {/* )
+                        </View>
+                    </View>
+                )
 
-            } */}
+            }
         </SafeAreaView>
     )
 }
@@ -164,7 +182,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         backgroundColor: '#700B97',
         padding: 10,
-        borderRadius: '10%'
+        borderRadius: 10
     },
     options: {
         marginVertical: 16,
@@ -204,7 +222,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3E065F',
         padding: 10,
         marginBottom: 10,
-        borderRadius: '10%'
+        borderRadius: 10
     },
     parent: {
         height: '100%'

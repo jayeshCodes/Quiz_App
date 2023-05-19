@@ -36,6 +36,11 @@ const StartQuizScreen = ({navigation}) => {
             component={Result}
             options={{headerShown: false}}
             />
+            {/* <Stack.Screen
+            name='Tests'
+            component={Tests}
+            options={{headerShown:false}}
+            /> */}
         </Stack.Navigator>
     )
 }

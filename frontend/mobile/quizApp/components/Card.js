@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     cardContainer:{
         backgroundColor:'#700B97',
         width: windowWidth * 0.8,
-        borderRadius: '5%',
+        borderRadius: 5,
         overflow:'hidden',
         background:'transparent'
     },
